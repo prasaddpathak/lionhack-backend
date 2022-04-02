@@ -5,10 +5,12 @@ const dotenv = require('dotenv');
 const userController = require('./js/users');
 const txController = require('./js/transactions');
 const utilController = require('./js/utils');
+const cors = require('cors')
 
 
 const app = express();
 
+app.use(cors);
 app.set('host', '127.0.0.1');
 app.set('port', 8000);
 app.use(bodyParser.json());
