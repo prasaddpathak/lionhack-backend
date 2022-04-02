@@ -54,3 +54,20 @@ module.exports.getTxDetails = async(req, res) => {
       res.send(results);
     });
 };
+
+module.exports.createTx = async(req, res) => {
+
+    const from = req.body.fromEthAddress;
+    const to = req.body.toEthAddress;
+    const txAddress = req.body.txHash;
+    const amount = req.body.ethDonated;
+
+    sql_query = `INSERT INTO transactions (fromEthAddress, toEthAddress, txHash, ethDonated) values ('${from}','${to}','${txAddress}',${amount});`
+    console.log(`Query : ${sql_query}`);
+
+    connection.query(sql_query, function (error, results, fields) {
+      if (error) throw error;
+      console.log('The solution is retruned');
+      res.send(results);
+    });
+};

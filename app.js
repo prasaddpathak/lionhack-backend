@@ -10,7 +10,7 @@ const utilController = require('./js/utils');
 const app = express();
 
 app.set('host', '127.0.0.1');
-app.set('port', 9000);
+app.set('port', 8000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,10 +25,13 @@ app.get('/users/:id', userController.getUserDetails);
 
 
 app.get('/transactions', txController.listAllTxs);
+app.post('/transactions', txController.createTx);
 app.get('/transactions/:id', txController.getTxDetails);
 
 app.get('/utils/ethPrice', utilController.getEthPrice);
 app.get('/utils/ethScanTx/:id', utilController.getEthScanTx);
+app.get('/utils/getTopDonors', utilController.topDonors);
+app.get('/utils/orgs/:id', utilController.getOrgDonors);
 
 
 

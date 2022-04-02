@@ -1,6 +1,7 @@
 const { application } = require('express');
 const { query } = require('express');
 const mysql = require('mysql');
+const { ORDER } = require('mysql/lib/PoolSelector');
 const requests = require('requests');
 // const { request } = require('../app');
 
@@ -9,6 +10,12 @@ require('dotenv').config()
 
 var api = require('etherscan-api').init('QN1RAZHI5YK7HCJREAFW12J3HEIN1S5PBI', 'rinkeby');
 
+var connection = mysql.createConnection({
+  host     : 'forest-friends.c9akkixatecs.us-east-1.rds.amazonaws.com',
+  user     : 'forest_friends',
+  password : 'Northeastern987',
+  database : 'lionhack'
+});
 
 
 /* 
@@ -40,3 +47,36 @@ module.exports.getEthScanTx = async(req, res) => {
     });
 };
 
+module.exports.topDonors = async(req, res) => {
+
+  // const from = req.body.fromEthAddress;
+  // const to = req.body.toEthAddress;
+  // const txAddress = req.body.txHash;
+  // const amount = req.body.ethDonated;
+
+  sql_query = `Select fromEthAddress, sum(ethDonated) as total_donations from transactions Group BY fromEthAddress; `
+  console.log(`Query : ${sql_query}`);
+  connection.query(sql_query, function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is retruned');
+    res.send(results);
+  });
+};
+
+module.exports.getOrgDonors = async(req, res) => {
+
+  // const from = req.body.fromEthAddress;
+  // const to = req.body.toEthAddress;
+  // const txAddress = req.body.txHash;
+  // const amount = req.body.ethDonated;
+  const orgId = req.params.id;
+
+  sql_query = `Select fromEthAddress, ethDonated from  transactions  where toEthAddress = '${orgId}'; `
+
+  console.log(`Query : ${sql_query}`);
+  connection.query(sql_query, function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is retruned');
+    res.send(results);
+  });
+};
