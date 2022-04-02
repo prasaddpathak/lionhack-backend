@@ -4,7 +4,8 @@
   "description": "An app for lionhack implementation",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
+    "startn": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Prasad Pathak",
