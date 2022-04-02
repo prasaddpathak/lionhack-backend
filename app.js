@@ -10,7 +10,7 @@ const utilController = require('./js/utils');
 const app = express();
 
 app.set('host', '127.0.0.1');
-app.set('port', 80);
+app.set('port', 9000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
